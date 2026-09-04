@@ -3,8 +3,10 @@ import { AUDIO_SRC, SONG_SRC, AUDIO_DURATION, getSectionForTime, SECTION_WINDOWS
 
 const TimelineContext = createContext(null)
 
-/** Volume level for the background song (0–1). Adjust if too loud/quiet. */
-const SONG_VOLUME = 0.15
+/** Volume level for the voice note (0–1). Kept gentle for earphone listening. */
+const VOICE_VOLUME = 0.65
+/** Volume level for the background song (0–1). Kept lower so it doesn't fight with the voice note. */
+const SONG_VOLUME = 0.10
 /** Seconds over which the song fades out when the voice note ends. */
 const SONG_FADE_DURATION = 3
 
@@ -56,6 +58,7 @@ export function TimelineProvider({ children }) {
     if (!audio) return
 
     audio.currentTime = 0
+    audio.volume = VOICE_VOLUME
     await audio.play()
 
     // Start background song alongside voice note
@@ -76,6 +79,7 @@ export function TimelineProvider({ children }) {
     if (!audio) return
 
     audio.currentTime = 0
+    audio.volume = VOICE_VOLUME
     setEnded(false)
     setCurrentTime(0)
     setStarted(true)
@@ -115,6 +119,11 @@ export function TimelineProvider({ children }) {
     frameRef.current = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(frameRef.current)
   }, [started, ended])
+
+  useEffect(() => {
+    if (audioRef.current) audioRef.current.volume = VOICE_VOLUME
+    if (songRef.current) songRef.current.volume = SONG_VOLUME
+  }, [])
 
   useEffect(() => {
     document.body.classList.toggle('is-cinematic', !ended && section.key !== 'gallery')

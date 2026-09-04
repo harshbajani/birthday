@@ -1,0 +1,178 @@
+/* ==========================================================================
+   Yashvi's Birthday Site — Design Tokens
+   Pair with design.md. Import this first in your app entry point.
+
+   TAILWIND v4 INTEGRATION: map these tokens in index.css via @theme inline
+   (do not duplicate hex values there). Then use as Tailwind classes:
+   bg-bg, text-accent, font-display, etc.
+   ========================================================================== */
+
+:root {
+  /* --- Color: Base --- */
+  --color-bg: #1a1410;          /* page background — warm near-black, never pure #000 */
+  --color-bg-alt: #221a15;      /* panels, cards, section backgrounds */
+
+  /* --- Color: Accent (the "warmth") --- */
+  --color-accent: #e8a0b4;      /* primary — headlines, glow, the open/CTA button */
+  --color-accent-light: #f2c0d0;/* hover/active states, brighter glow variant */
+
+  /* --- Color: Secondary Accent (the "cinematic" depth) --- */
+  --color-secondary: #c9849e;   /* timeline dots, photo overlay tints, dividers */
+
+  /* --- Color: Text --- */
+  --color-text: #f2e8dc;        /* body copy, headlines — warm off-white, never pure #fff */
+  --color-text-muted: #b8a998;  /* captions, dates, secondary labels */
+
+  /* --- Typography --- */
+  --font-display: 'Cormorant Garamond', 'Playfair Display', serif; /* her name, key declaration lines */
+  --font-body: 'Inter', 'Manrope', sans-serif;                     /* captions, UI text */
+  --font-size-hero: clamp(2.5rem, 8vw, 5rem);
+  --font-size-declaration: clamp(1.75rem, 5vw, 3rem);
+  --font-size-caption: 0.95rem;
+
+  /* --- Motion timing (keep everything slow — nothing under 400ms) --- */
+  --ease-cinematic: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fade: 1200ms;
+  --duration-section-transition: 2800ms;
+  --duration-photo-focus: 2000ms;
+
+  /* --- Effects --- */
+  --grain-opacity: 0.05;         /* film grain overlay strength */
+  --vignette-strength: 0.35;     /* photo edge darkening */
+  --glow-blur: 24px;             /* accent text/element glow radius */
+}
+
+/* Utility: warm vignette overlay for photos.
+   Apply to a ::after pseudo-element on any photo container. */
+.photo-vignette {
+  position: relative;
+  isolation: isolate;
+}
+
+.photo-vignette::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 40%,
+    rgba(26, 20, 16, var(--vignette-strength)) 100%
+  );
+  pointer-events: none;
+}
+
+/* Utility: accent glow text (hero name, declaration lines) */
+.glow-text {
+  color: var(--color-accent);
+  text-shadow: 0 0 var(--glow-blur) rgba(232, 160, 180, 0.5);
+}
+
+/* Utility: cinematic film grain — SVG noise tiled over the viewport */
+.film-grain {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  opacity: var(--grain-opacity);
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .film-grain {
+    animation: none;
+  }
+}
+
+/* Ambient dust motes — persists behind every section */
+.dust-motes {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.dust-motes span {
+  position: absolute;
+  display: block;
+  width: 2px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--color-accent-light);
+  opacity: 0.18;
+  animation: mote-drift 18s var(--ease-cinematic) infinite;
+}
+
+@keyframes mote-drift {
+  0% { transform: translate3d(0, 12px, 0); opacity: 0; }
+  20% { opacity: 0.22; }
+  80% { opacity: 0.12; }
+  100% { transform: translate3d(8px, -28px, 0); opacity: 0; }
+}
+
+@keyframes tap-pulse {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 1; }
+}
+
+.tap-pulse {
+  animation: tap-pulse 2.8s var(--ease-cinematic) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tap-pulse {
+    animation: none;
+    opacity: 0.8;
+  }
+}
+
+/* Contained photo frame — used in Timeline Sequencer (Section 4) */
+.photo-frame {
+  width: 100%;
+  max-width: min(88vw, 400px);
+  aspect-ratio: 3 / 4;
+  max-height: 72dvh;
+  border-radius: 1rem;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.55), 0 0 24px rgba(232, 160, 180, 0.15);
+  border: 1px solid rgba(232, 160, 180, 0.18);
+  background-color: var(--color-bg-alt);
+}
+
+/* Proposal chat-screenshot card — used in Falling Section (Section 3) */
+.screenshot-card {
+  width: auto;
+  max-width: min(82vw, 320px);
+  max-height: min(52vh, 440px);
+  border-radius: 1.25rem;
+  overflow: hidden;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6), 0 0 24px rgba(232, 160, 180, 0.2);
+  border: 1px solid rgba(232, 160, 180, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #120e0c;
+}
+
+.screenshot-card img {
+  max-height: min(52vh, 440px);
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Gallery warm hover glow (desktop) */
+@media (hover: hover) {
+  .gallery-card {
+    transition: box-shadow 0.5s var(--ease-cinematic), transform 0.5s var(--ease-cinematic);
+  }
+  .gallery-card:hover {
+    box-shadow: 0 4px 24px rgba(232, 160, 180, 0.18);
+    transform: translateY(-2px);
+  }
+}
+

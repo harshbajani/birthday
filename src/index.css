@@ -1,0 +1,49 @@
+@import "tailwindcss";
+@import "./globals.css";
+
+/* Tailwind v4: map globals.css tokens into utilities (bg-bg, text-accent, font-display).
+   @theme inline inlines the var() references — hex stays only in globals.css. */
+@theme inline {
+  --color-bg: var(--color-bg);
+  --color-bg-alt: var(--color-bg-alt);
+  --color-accent: var(--color-accent);
+  --color-accent-light: var(--color-accent-light);
+  --color-secondary: var(--color-secondary);
+  --color-text: var(--color-text);
+  --color-text-muted: var(--color-text-muted);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+}
+
+html,
+body,
+#root {
+  min-height: 100dvh;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
+
+body {
+  margin: 0;
+}
+
+body.is-cinematic {
+  overflow: hidden;
+}
+
+body.is-gallery {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#root canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-accent) 40%, transparent);
+  color: var(--color-text);
+}

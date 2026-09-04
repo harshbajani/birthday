@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <!-- Background subtle gradient -->
+    <radialGradient id="bgGrad" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#2a151f" />
+      <stop offset="100%" stop-color="#140b10" />
+    </radialGradient>
+
+    <!-- Tulip & Heart Petal Gradients -->
+    <linearGradient id="mainPetalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff6584" />
+      <stop offset="50%" stop-color="#f27d9a" />
+      <stop offset="100%" stop-color="#d93d6a" />
+    </linearGradient>
+
+    <linearGradient id="leftPetalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff8da7" />
+      <stop offset="100%" stop-color="#e84a75" />
+    </linearGradient>
+
+    <linearGradient id="rightPetalGrad" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffa3b8" />
+      <stop offset="100%" stop-color="#f05b84" />
+    </linearGradient>
+
+    <linearGradient id="centerGlow" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#ffd4e0" stop-opacity="0.2" />
+    </linearGradient>
+
+    <linearGradient id="goldStar" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff8db" />
+      <stop offset="100%" stop-color="#ffd56b" />
+    </linearGradient>
+  </defs>
+
+  <!-- Squircle App Badge Container -->
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#bgGrad)" stroke="#e8a0b4" stroke-width="1.5" stroke-opacity="0.4" />
+
+  <!-- Stem and Leaves -->
+  <path d="M32 38 Q32 50 32 54" stroke="#5fb37e" stroke-width="3" stroke-linecap="round" />
+  <path d="M32 46 Q40 43 43 38 Q37 45 32 46 Z" fill="#6bc28c" />
+  <path d="M32 49 Q24 46 21 41 Q27 48 32 49 Z" fill="#52a672" />
+
+  <!-- Back center petal forming heart notch -->
+  <path d="M26 21 C26 13 38 13 38 21 C38 35 32 39 32 39 C32 39 26 35 26 21 Z" fill="#ba2d56" />
+
+  <!-- Left blooming petal (Heart curve) -->
+  <path d="M32 39 C24 39 14 31 14 20 C14 11 26 10 31 22 C31.6 23.5 32 25 32 25 C32 25 32.4 23.5 33 22 C38 10 50 11 50 20 C50 31 40 39 32 39 Z" fill="url(#mainPetalGrad)" />
+
+  <!-- Left wing highlight -->
+  <path d="M31.5 22 C26.5 10.5 14.5 12 14.5 20.5 C14.5 30 23.5 37.5 31.5 38.8 C28.5 32 27 26 31.5 22 Z" fill="url(#leftPetalGrad)" />
+
+  <!-- Right wing highlight -->
+  <path d="M32.5 22 C37.5 10.5 49.5 12 49.5 20.5 C49.5 30 40.5 37.5 32.5 38.8 C35.5 32 37 26 32.5 22 Z" fill="url(#rightPetalGrad)" />
+
+  <!-- Center inner glow heart -->
+  <path d="M32 24 C30 20 25 20.5 25 24.5 C25 29 32 34 32 34 C32 34 39 29 39 24.5 C39 20.5 34 20 32 24 Z" fill="url(#centerGlow)" />
+
+  <!-- Magic Sparkles ✦ -->
+  <path d="M49 10 Q50 14 54 15 Q50 16 49 20 Q48 16 44 15 Q48 14 49 10 Z" fill="url(#goldStar)" />
+  <circle cx="15" cy="14" r="1.8" fill="#ffdce5" />
+  <circle cx="51" cy="27" r="1.2" fill="#ffffff" opacity="0.9" />
+</svg>
